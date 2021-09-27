@@ -1,13 +1,14 @@
 
-	#include "proc.h"
+#include "proc.h"
+#include "mem.h"
 
-	int main()
-	{
+int main()
+{
 	// Initalize process variables, addresses and toggles.
 	HANDLE hProcess = 0;
 
 	uintptr_t moduleBase, localPlayerPtr, healthAddr;
-	bool bHealth, bAmmo, bRecoil;
+	bool bHealth = false, bRecoil = false, bAmmo = false;
 
 	// Set our buffer for the health & get process ID
 	constexpr int newValue{ 1337 };
@@ -17,10 +18,14 @@
 	{
 		if (processID)
 		{
+			// Open the process to allow use to use RPM/WPM
 			hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, processID);
+
+			// Caculate module base and resolve local player pointer
 			moduleBase = GetModuleBaseAddress(processID, L"ac_client.exe");
 			localPlayerPtr = moduleBase + 0x10f4f4;
 
+			// Follow the pointer chain to the health address
 			healthAddr = FindDMAAddy(hProcess, localPlayerPtr, { 0xf8 });
 			break;
 		}
@@ -31,12 +36,10 @@
 			getchar();
 			processID = GetProcId(L"ac_client.exe");
 		}
-	}
-	
-	
-	DWORD dwExit{ 0 };
-	while (GetExitCodeProcess(hProcess, &dwExit) && dwExit == STILL_ACTIVE)
-	{
+
 
 	}
+
+
 	
+}
