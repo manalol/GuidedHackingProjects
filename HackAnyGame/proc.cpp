@@ -31,7 +31,7 @@ DWORD GetProcId(const wchar_t* processName)
 uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* moduleName)
 {
 	uintptr_t moduleBaseAddress = 0;
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE || TH32CS_SNAPMODULE32, procId);
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procId);
 
 	if (hSnap != INVALID_HANDLE_VALUE)
 	{
@@ -42,7 +42,7 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* moduleName)
 		{
 			do
 			{
-				if (!_wcsicmp(moduleEntry.szExePath, moduleName))
+				if (!_wcsicmp(moduleEntry.szModule, moduleName))
 				{
 					moduleBaseAddress = (uintptr_t) moduleEntry.modBaseAddr;
 					break;

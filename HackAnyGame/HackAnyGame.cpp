@@ -6,7 +6,7 @@ int main()
 	
 	// Get process ID
 	DWORD processID = GetProcId(L"ac_client.exe");
-	std::cout << "Process ID: " << processID;
+	std::cout << "Process ID: " << processID << std::endl;
 
 	// Get module base address
 	uintptr_t modBaseAddress = GetModuleBaseAddress(processID, L"ac_client.exe");
