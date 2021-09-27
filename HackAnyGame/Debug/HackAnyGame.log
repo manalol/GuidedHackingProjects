@@ -1,0 +1,3 @@
+﻿  proc.cpp
+D:\C++\HackAnyGame\HackAnyGame\proc.cpp(62,20): warning C4018: '<': signed/unsigned mismatch
+  HackAnyGame.vcxproj -> D:\C++\HackAnyGame\Debug\HackAnyGame.exe
